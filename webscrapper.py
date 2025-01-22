@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
 
 # Base URL for Wowhead Classic quests
 BASE_URL = 'https://www.wowhead.com/classic/quest='
@@ -44,11 +45,14 @@ for i in range(1, 901):
         print(f"Error fetching quest {i}: {e}")
     
 # Output the data (replace this with saving to a file or database as needed)
-for quest in quests_list:
-    print(f"Quest ID: {quest['quest_id']}")
-    print(f"Title: {quest['quest_title']}")
-    print(f"URL: {quest['quest_url']}")
-    print("Comments:")
-    for comment in quest['comments']:
-        print(f"- {comment}")
-    print("\n--------------------\n")
+csv_file= 'wowheadParseQuest.csv'
+with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
+    write = csv.write(file)
+    write.writerow({'quest_id', 'quest_title', 'quest_url', 'comments'})
+    for quest in quests_list:
+        comments_joined = " | ".join(quest['comments'])
+        write.writerow([quest['quest_id'], quest['quest_title'], quest['quest_url'], comments_joined])
+
+# Printing Data from wowhead to csv_file
+print(f" {csv_file}")
+# Possible optimization towards the code with aiohttp >> needs more inspection.
