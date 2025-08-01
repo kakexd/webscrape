@@ -10,3 +10,7 @@ usage for setting custom limit for quest scraping:
 Total_quests = //insert your number
 
 for i in range(i, total_quests + 1): // Adjust the i for any custom number you want it ranged from.
+
+
+# Data
+Added already scraped data from wowhead.
